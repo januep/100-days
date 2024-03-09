@@ -1,38 +1,55 @@
-.App {
-  text-align: center;
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr); /* tworzy 10 kolumn */
+  grid-gap: 10px; /* odstępy między elementami */
+  max-width: 500px; /* maksymalna szerokość kontenera */
+  margin: 20px auto; /* wycentruj kontener na stronie */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.grid-item {
+  background-color: #efefef; /* kolor tła dla elementów siatki */
+  border: 1px solid #ddd; /* obramowanie elementów siatki */
+  padding: 20px; /* padding wewnątrz elementów siatki */
+  text-align: center; /* wyrównanie tekstu do środka */
+  line-height: 1.5; /* wysokość linii */
+  font-size: 16px; /* rozmiar czcionki */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* Opcjonalnie, możesz dodać responsywność */
+@media (max-width: 600px) {
+  .grid-container {
+    grid-gap: 5px;
+  }
+
+  .grid-item {
+    padding: 10px;
+    font-size: 14px;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.grid-container {
+  /* Twoje style dla siatki */
 }
 
-.App-link {
-  color: #61dafb;
+.grid-item {
+  /* Twoje style dla elementu siatki */
+  position: relative; /* potrzebne do pozycjonowania X-a */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.cross {
+  color: red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  pointer-events: none; /* aby kliknięcie przechodziło do grid-item */
+}
+
+.crossed {
+  text-decoration: line-through;
+}
+
+.day-number {
+  /* Twoje style dla numeru dnia */
 }
