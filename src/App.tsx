@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import "./App.css"; // Make sure to define some basic styles
+import "./App.css";
 
 interface CardProps {
   number: number;
@@ -17,14 +17,14 @@ const Card: React.FC<CardProps> = ({ number, flipCard, isFlipped }) => {
       transition={{ duration: 0.5 }}
     >
       {isFlipped ? (
-        <motion.span
+        <motion.img
+          src={`${process.env.PUBLIC_URL}/x.png`}
+          alt="Cross"
           className="cross"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.25 }}
-        >
-          X
-        </motion.span>
+        />
       ) : (
         number
       )}
@@ -33,7 +33,18 @@ const Card: React.FC<CardProps> = ({ number, flipCard, isFlipped }) => {
 };
 
 const App: React.FC = () => {
-  const [flippedCards, setFlippedCards] = useState<Record<number, boolean>>({});
+  // Initialize flippedCards from local storage or as an empty object
+  const [flippedCards, setFlippedCards] = useState<Record<number, boolean>>(
+    () => {
+      const saved = localStorage.getItem("flippedCards");
+      return saved ? JSON.parse(saved) : {};
+    }
+  );
+
+  // Effect to save flippedCards to local storage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("flippedCards", JSON.stringify(flippedCards));
+  }, [flippedCards]);
 
   const flipCard = (index: number) => {
     setFlippedCards((prev) => ({ ...prev, [index]: !prev[index] }));
